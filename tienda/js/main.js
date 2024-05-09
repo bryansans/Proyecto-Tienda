@@ -201,11 +201,15 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Función para agregar un producto al carrito
     function agregarAlCarrito(event) {
+        const boton = event.currentTarget;
+        const productoSeleccionadoId = boton.dataset.id;
+        const producto = productos.find(p => p.id === productoSeleccionadoId);
+
         const productoSeleccionado = {
-            id: event.target.parentElement.dataset.id,
-            titulo: event.target.parentElement.querySelector('.producto-titulo').textContent,
-            imagen: event.target.parentElement.querySelector('.producto-imagen').src,
-            precio: parseFloat(event.target.parentElement.querySelector('.producto-precio').textContent),
+            id: producto.id,
+            titulo: producto.titulo,
+            imagen: producto.imagen,
+            precio: producto.precio,
             cantidad: 1 // Inicialmente, agregamos una unidad del producto
         };
 
@@ -213,7 +217,7 @@ document.addEventListener("DOMContentLoaded", function() {
         let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
         
         // Buscamos si el producto ya está en el carrito
-        const productoExistente = carrito.find(producto => producto.id === productoSeleccionado.id);
+        const productoExistente = carrito.find(p => p.id === productoSeleccionado.id);
 
         if (productoExistente) {
             // Si el producto ya está en el carrito, aumentamos su cantidad
