@@ -198,6 +198,15 @@ botonesCategorias.forEach(boton => {
 
 document.addEventListener("DOMContentLoaded", function() {
     const botonesAgregar = document.querySelectorAll(".producto-agregar");
+    const cantidadProductosCarrito = document.querySelector(".numerito");
+    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+
+    function actualizarCantidadCarrito() {
+        cantidadProductosCarrito.setAttribute('data-cantidad', carrito.length);
+    }
+
+    // Llamar a la función para que se ejecute cuando se cargue la página
+    actualizarCantidadCarrito();
 
     // Función para agregar un producto al carrito
     function agregarAlCarrito(event) {

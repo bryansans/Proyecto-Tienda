@@ -106,6 +106,23 @@ aside {
     color: var(--clr-main);
     padding: .15rem .25rem;
     border-radius: .25rem;
+    position: relative;
+}
+
+.numerito::before {
+    content: attr(data-cantidad);
+    position: absolute;
+    top: -0.5rem;
+    right: -0.5rem;
+    background-color: var(--clr-red);
+    color: var(--clr-white);
+    padding: 0.25rem 0.5rem;
+    border-radius: 50%;
+    font-size: 0.75rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .boton-carrito.active .numerito {
