@@ -205,7 +205,7 @@ const productos = [
     })
     
     document.addEventListener("DOMContentLoaded", function() {
-        const botonesAgregar = document.querySelectorAll(".producto-agregar");
+        const botonesAgregar = document.querySelectorAll("[id^='4']");
     
         // Función para agregar un producto al carrito
         function agregarAlCarrito(event) {
