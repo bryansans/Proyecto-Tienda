@@ -202,7 +202,48 @@ const productos = [
 
         })
 
-    })    
+    })
+    
+    document.addEventListener("DOMContentLoaded", function() {
+        const botonesAgregar = document.querySelectorAll(".producto-agregar");
+    
+        // Función para agregar un producto al carrito
+        function agregarAlCarrito(event) {
+            const productoSeleccionado = {
+                id: event.target.parentElement.dataset.id,
+                titulo: event.target.parentElement.querySelector('.producto-titulo').textContent,
+                imagen: event.target.parentElement.querySelector('.producto-imagen').src,
+                precio: parseFloat(event.target.parentElement.querySelector('.producto-precio').textContent.replace('$', '')),
+                cantidad: 1 // Inicialmente, agregamos una unidad del producto
+            };
+    
+            // Verificamos si ya hay productos en el carrito en el Local Storage
+            let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+            
+            // Buscamos si el producto ya está en el carrito
+            const productoExistente = carrito.find(producto => producto.id === productoSeleccionado.id);
+    
+            if (productoExistente) {
+                // Si el producto ya está en el carrito, aumentamos su cantidad
+                productoExistente.cantidad++;
+            } else {
+                // Si el producto no está en el carrito, lo agregamos
+                carrito.push(productoSeleccionado);
+            }
+    
+            // Guardamos el carrito actualizado en el Local Storage
+            localStorage.setItem('carrito', JSON.stringify(carrito));
+            
+            // Redireccionamos al usuario a la página del carrito
+            window.location.href = "carrito.html";
+        }
+    
+        // Agregamos un evento de clic a cada botón "Agregar"
+        botonesAgregar.forEach(boton => {
+            boton.addEventListener("click", agregarAlCarrito);
+        });
+    });
+    
 
                      
  

@@ -82,3 +82,101 @@ document.addEventListener("DOMContentLoaded", function() {
     // Llamada inicial para mostrar los productos agregados al carrito
     mostrarCarrito();
 });
+
+document.addEventListener("DOMContentLoaded", function() {
+    const contenedorProductos = document.querySelector(".carrito-productos");
+    const carritoTotal = document.querySelector("#total");
+    const botonVaciarCarrito = document.querySelector(".carrito-acciones-vaciar");
+    const botonComprar = document.querySelector(".carrito-acciones-comprar");
+
+    let carrito = [];
+
+    // Recuperar productos del Local Storage al cargar la página
+    const productosLocalStorage = JSON.parse(localStorage.getItem('carrito'));
+    if (productosLocalStorage) {
+        carrito = productosLocalStorage;
+    }
+
+    // Función para mostrar los productos agregados al carrito
+    function mostrarCarrito() {
+        contenedorProductos.innerHTML = "";
+        carrito.forEach(producto => {
+            const div = document.createElement("div");
+            div.classList.add("carrito-producto");
+            div.dataset.id = producto.id;
+            div.innerHTML = `
+                <img class="carrito-producto-imagen" src="${producto.imagen}" alt="${producto.titulo}">
+                <div class="carrito-producto-titulo">
+                    <small>Titulo</small>
+                    <h3>${producto.titulo}</h3>
+                </div>
+                <div class="carrito-producto-cantidad">
+                    <small>Cantidad</small>
+                    <p>${producto.cantidad}</p>
+                </div>
+                <div class="carrito-producto-precio">
+                    <small>Precio</small>
+                    <p>$${producto.precio}</p>
+                </div>
+                <div class="carrito-producto-subtotal">
+                    <small>Subtotal</small>
+                    <p>$${producto.precio * producto.cantidad}</p>
+                </div>
+                <button class="carrito-producto-eliminar"><i class="bi bi-trash-fill"></i></button>
+            `;
+            contenedorProductos.append(div);
+        });
+        calcularTotal();
+    }
+
+    // Función para eliminar un producto del carrito
+    function eliminarProducto(id) {
+        carrito = carrito.filter(producto => producto.id !== id);
+        mostrarCarrito();
+        actualizarLocalStorage();
+    }
+
+    // Función para calcular el total de la compra
+    function calcularTotal() {
+        const total = carrito.reduce((acc, producto) => acc + (producto.precio * producto.cantidad), 0);
+        carritoTotal.textContent = `$${total.toFixed(2)}`;
+    }
+
+    // Función para vaciar el carrito
+    function vaciarCarrito() {
+        carrito = [];
+        mostrarCarrito();
+        actualizarLocalStorage();
+    }
+
+    // Función para procesar la compra
+    function procesarCompra() {
+        // Aquí puedes agregar la lógica para procesar la compra
+        // Por ejemplo, enviar los productos al servidor para completar la transacción
+        // Luego, puedes vaciar el carrito y mostrar un mensaje de agradecimiento
+        vaciarCarrito();
+        mostrarMensajeAgradecimiento();
+    }
+
+    // Función para actualizar el Local Storage
+    function actualizarLocalStorage() {
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+    }
+
+    // Evento para eliminar un producto del carrito al hacer clic en el botón de eliminar
+    contenedorProductos.addEventListener("click", function(event) {
+        if (event.target.classList.contains("carrito-producto-eliminar")) {
+            const productoId = event.target.parentElement.dataset.id;
+            eliminarProducto(productoId);
+        }
+    });
+
+    // Evento para vaciar el carrito al hacer clic en el botón de vaciar
+    botonVaciarCarrito.addEventListener("click", vaciarCarrito);
+
+    // Evento para procesar la compra al hacer clic en el botón de comprar
+    botonComprar.addEventListener("click", procesarCompra);
+
+    // Llamada inicial para mostrar los productos agregados al carrito
+    mostrarCarrito();
+});
