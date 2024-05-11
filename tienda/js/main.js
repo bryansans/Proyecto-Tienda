@@ -14,7 +14,7 @@ const productos = [
     {
         id: "celular-02",
         titulo: "Celular 02",
-        imagen: "./images/celulares/cel2.png",
+        imagen: "./images/celulares/cel2.jpg",
         categoria: {
             nombre: "Celulares",
             id: "celulares"
