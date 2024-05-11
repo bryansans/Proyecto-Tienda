@@ -156,7 +156,7 @@ const productos = [
 ];
     
 const contenedorProductos = document.querySelector("#contenedor-productos");
-const botonesCategorias = document.querySelectorAll(".boton-categorias");
+const botonesCategorias = document.querySelectorAll(".boton-menu"); // Aquí corregido
 const tituloPrincipal = document.querySelector("#titulo-principal");
 
 function cargarProductos(productosElegidos) {      
@@ -168,9 +168,9 @@ function cargarProductos(productosElegidos) {
         div.innerHTML = `
             <img class="producto-imagen" src="${producto.imagen}" alt="${producto.titulo}">
             <div class="producto-detalles">
-               <h3 class="producto-titulo">${producto.titulo}</h3>
-               <p class="producto-precio">${producto.precio}</p>
-               <button class="producto-agregar" data-id="${producto.id}">Agregar</button>
+                <h3 class="producto-titulo">${producto.titulo}</h3>
+                <p class="producto-precio">$${producto.precio}</p>
+                <button class="producto-agregar" data-id="${producto.id}">Agregar</button>
             </div>            
         `;
 
