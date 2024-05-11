@@ -200,6 +200,20 @@ document.addEventListener("DOMContentLoaded", function() {
     const botonesAgregar = document.querySelectorAll(".producto-agregar");
     const numeritoCarrito = document.querySelector(".numerito");
 
+    // Función para obtener la cantidad de productos en el carrito
+    function obtenerCantidadProductosEnCarrito() {
+        const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+        return carrito.length;
+    }
+
+    // Función para actualizar el número en el ícono del carrito
+    function actualizarNumeroCarrito() {
+        numeritoCarrito.textContent = obtenerCantidadProductosEnCarrito();
+    }
+
+    // Llamamos a la función para actualizar el número en el ícono del carrito cuando se carga la página
+    actualizarNumeroCarrito();
+
     // Función para agregar un producto al carrito
     function agregarAlCarrito(event) {
         const boton = event.currentTarget;
