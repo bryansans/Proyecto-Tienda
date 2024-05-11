@@ -156,7 +156,7 @@ const productos = [
 ];
     
 const contenedorProductos = document.querySelector("#contenedor-productos");
-const botonesCategorias = document.querySelectorAll(".boton-menu"); // Aquí corregido
+const botonesCategorias = document.querySelectorAll(".boton-categoria");
 const tituloPrincipal = document.querySelector("#titulo-principal");
 
 function cargarProductos(productosElegidos) {      
@@ -189,9 +189,15 @@ botonesCategorias.forEach(boton => {
             const productoCategoria = productos.filter(producto => producto.categoria.id === e.currentTarget.id);
             tituloPrincipal.innerText = productoCategoria[0].categoria.nombre;
             cargarProductos(productoCategoria);
+
+            // Actualizar el número en el ícono del carrito
+            actualizarNumeroCarrito();
         } else {
             tituloPrincipal.innerText = "Todos los productos";
             cargarProductos(productos);
+
+            // Actualizar el número en el ícono del carrito
+            actualizarNumeroCarrito();
         }
     });
 });
@@ -208,6 +214,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Función para actualizar el número en el ícono del carrito
     function actualizarNumeroCarrito() {
+        const numeritoCarrito = document.querySelector(".numerito");
         numeritoCarrito.textContent = obtenerCantidadProductosEnCarrito();
     }
 
