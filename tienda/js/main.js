@@ -198,6 +198,7 @@ botonesCategorias.forEach(boton => {
 
 document.addEventListener("DOMContentLoaded", function() {
     const botonesAgregar = document.querySelectorAll(".producto-agregar");
+    const numeritoCarrito = document.querySelector(".numerito");
 
     // Función para agregar un producto al carrito
     function agregarAlCarrito(event) {
@@ -230,6 +231,9 @@ document.addEventListener("DOMContentLoaded", function() {
         // Guardamos el carrito actualizado en el Local Storage
         localStorage.setItem('carrito', JSON.stringify(carrito));
         
+        // Actualizamos el número en el ícono del carrito
+        numeritoCarrito.textContent = carrito.length; // Actualizamos el número con la cantidad de productos en el carrito
+
         // Redireccionamos al usuario a la página del carrito
         window.location.href = "carrito.html";
     }
