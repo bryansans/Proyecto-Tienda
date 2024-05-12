@@ -134,25 +134,26 @@ main {
 
 .contenedor-productos {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.producto {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .producto-imagen {
-    max-width: 100%;
-    border-radius: 1rem;
+    width: 100%;
+    height: 250px; /* Establecer una altura fija para las imágenes */
+    object-fit: cover; /* Ajustar la imagen dentro de su contenedor sin distorsionar su proporción */
+    border-radius: 10px;
 }
 
 .producto-detalles {
-    background-color: var(--clr-main);
-    color: var(--clr-white);
-    padding: .5rem;
-    border-radius: 1rem;
-    margin-top: -2rem;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: .25rem;
+    margin-top: 10px;
+    text-align: center;
 }
 
 .producto-titulo {
